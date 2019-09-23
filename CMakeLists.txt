@@ -4,4 +4,4 @@ project(hash)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(gtests)
-add_executable(hash src/main.cpp src/functions.cpp src/functions.h src/main.h)
+add_executable(hash src/main.cpp src/ZA256/ZA256.h)
