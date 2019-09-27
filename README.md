@@ -42,7 +42,7 @@ In order to run a program, follow these steps
 
 ## Changelog
 
-### [v0.1](https://github.com/zygisau/ZA-256/releases/tag/v0.1) - (2019-09-25)  
+### [v0.1](https://github.com/zygisau/ZA-256/releases/tag/0.1) - (2019-09-25)  
 **Added**  
 
  - Developed *static* class
