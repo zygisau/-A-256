@@ -33,7 +33,6 @@ zygisau::ZA256::hash("HashMyPassword123")
 
 ## Installation
 
-## Programos paleidimas  
 In order to run a program, follow these steps
 - `git clone git@github.com:zygisau/ZA-256.git` <-- if You are using SSH
 - `git clone https://github.com/zygisau/ZA-256.git` <-- else  
