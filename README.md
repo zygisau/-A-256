@@ -33,20 +33,19 @@ zygisau::ZA256::hash("HashMyPassword123")
 
 ## Installation
 
-## Programos paleidimas  
-Paleisti programą galima keliais būdais.  
-- `git clone git@github.com:zygisau/ZA-256.git` <-- jei naudojate SSH key  
-- `git clone https://github.com/zygisau/ZA-256.git` <-- kitu atveju  
+In order to run a program, follow these steps
+- `git clone git@github.com:zygisau/ZA-256.git` <-- if You are using SSH
+- `git clone https://github.com/zygisau/ZA-256.git` <-- else  
 - `cd ZA-256`  
-- Jei naudojate CMAKE, naudoti reikia CMakeLists.txt failą.
+- Run CMakeLists.txt file with CMAKE.
 
 
 ## Changelog
 
-### [v0.1](https://github.com/zygisau/ZA-256/releases/tag/v0.1) - (2019-09-25)  
-**Pridėta**  
+### [v0.1](https://github.com/zygisau/ZA-256/releases/tag/0.1) - (2019-09-25)  
+**Added**  
 
- - Sukurta *static* klasė, turinti hash funkciją.
- - Paruoštas README failas
+ - Developed *static* class
+ - Created README file
 
 [version-badge]: https://img.shields.io/badge/version-0.1-yellow.svg
