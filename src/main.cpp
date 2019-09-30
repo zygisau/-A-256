@@ -2,11 +2,11 @@
 #include "./functions.h"
 
 int main(int argc, char *argv[]) {
-    if (argc == 3) { // read from arguments
+    if (argc == 3 && strcmp(argv[1], "-f") == 0) {
 		string input = readFile(argv[2]);
 
-		cout << argv[1] << " - " << zygisau::ZA256::hash(input) << endl;
-    } else  if (argc == 2) {
+		cout << input << " - " << zygisau::ZA256::hash(input) << endl;
+    } else if (argc == 2) {
 		cout << argv[1] << " - " << zygisau::ZA256::hash(argv[1]) << endl;
 	} else {
         cout << "No arguments were passed OR failed to parse them. Exiting..." << endl;

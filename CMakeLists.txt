@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.14)
 project(hash)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS -O3)
+#set(CMAKE_CXX_FLAGS -O3)
 
-add_subdirectory(gtests)
 add_executable(hash src/main.cpp src/ZA256/ZA256.h src/functions.cpp src/functions.h)
