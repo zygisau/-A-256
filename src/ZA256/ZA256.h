@@ -13,11 +13,14 @@
 #include <sstream>
 #include <cmath>
 #include <vector>
+#include <numeric>
 using std::cin; using std::cout; using std::string; using std::endl;
 using std::ifstream; using std::ofstream; using std::stringstream; using std::hex;
 using std::ceil; using std::vector;
 
 namespace zygisau {
+	const string DEFAULT_HASH = "C0794730544D2337ED9D5FC52E9A17243AE5237C9347CCF7A246210EBE4AEDAC";
+
 	class ZA256 {
 	private:
 		explicit ZA256() = default;
@@ -72,7 +75,7 @@ namespace zygisau {
 			string hash;
 			std::stringstream stream;
 			for (auto &integer: array) {
-				stream << hex << integer; // or without hex
+				stream << hex << integer;
 			}
 			hash = stream.str();
 
@@ -80,33 +83,26 @@ namespace zygisau {
 			string surplus = hash.substr(64);
 
 			int i = 0;
+			vector<unsigned long> newArray;
 			for (char& character : surplus) {
-//				payload[i] = (char)((unsigned)payload[i] ^ (unsigned)character);
-//				if (i < payload.length()) {
-//					i++;
-//				} else {
-//					i = 0;
-//				}
-				std::for_each(payload.begin(), payload.end(), [character] (char &c) {
-					c = (char)((unsigned)c ^ (unsigned)character);
+				std::for_each(payload.begin(), payload.end(), [character, &newArray] (char &c) {
+					newArray.push_back((unsigned)c ^ (unsigned)character);
+					c = newArray.back();
 				});
 			}
 
 			stream.str(std::string());
-			for (auto &character: payload) {
-				stream << hex << character;
+			for (auto &integer: newArray) {
+				stream << hex << integer;
 			}
 			hash = stream.str();
-//			return hash.substr(hash.length() - 64, 64);
-			return hash;
+			return hash.substr(0, 64);
 		}
 
 		static void mixUp (string& str, unsigned long index, unsigned long sauce) {
-			auto front = str.begin();
-			auto back = str.end() - 1 - index;
-			*front = (unsigned long)(*front) ^ sauce;
-			*back = (unsigned long)*back ^ sauce;
-			sauce += (unsigned long)*front ^ (unsigned long)*back;
+			str[index] = (unsigned)str[index] ^ sauce;
+			str[str.length() - 1 - index] = (unsigned)str[str.length() - 1 - index] ^ sauce;
+			sauce += (unsigned)str[index] ^ (unsigned)str[str.length() - 1 - index];
 			if (++index < str.length()) {
 				mixUp(str, index, sauce);
 			}
@@ -124,10 +120,15 @@ namespace zygisau {
 		}
 
 	public:
+
 		static string hash(string str) {
+			if (str.empty())
+				return DEFAULT_HASH;
+
 			vector<unsigned long> array;
 			stringToIntArray(str, array);
 			mixUp(array, 0, array.front() + array.back());
+
 			return convertAndResize(array);
 		}
 	};
