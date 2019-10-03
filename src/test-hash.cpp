@@ -129,7 +129,7 @@ double bitCompare(const std::string &a, const std::string &b) {
 	std::string binaryA = stringToBin(a);
 	std::string binaryB = stringToBin(b);
 	for (unsigned int i = 0; i < binaryA.length(); i++) {
-		if (binaryA[i] == binaryB[i])
+		if (binaryA[i] != binaryB[i])
 			ratio++;
 	}
 	return ratio / binaryA.length();
