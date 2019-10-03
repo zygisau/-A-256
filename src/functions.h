@@ -6,5 +6,6 @@
 #define HASH_FUNCTIONS_H
 
 string readFile(const string& fileName);
+bool hasEnding (string const &fullString, string const &ending);
 
 #endif //HASH_FUNCTIONS_H

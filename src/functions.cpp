@@ -9,11 +9,21 @@ string readFile(const string& fileName) {
 
 	ifstream fd(fileName);
 	if (fd.fail()) {
-		cout << "Failed to open the file. Exiting..." << endl;
+		// Failed to open the file. Hashing fileName as an input...
+		str = fileName;
 	} else {
 		str.assign( (std::istreambuf_iterator<char>(fd) ),
 							 (std::istreambuf_iterator<char>()    ) );
 	}
 
 	return str;
+}
+
+/* Big thanks to https://stackoverflow.com/a/874160 */
+bool hasEnding (string const &fullString, string const &ending) {
+	if (fullString.length() >= ending.length()) {
+		return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+	} else {
+		return false;
+	}
 }

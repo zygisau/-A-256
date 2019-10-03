@@ -2,16 +2,15 @@
 #include "./functions.h"
 
 int main(int argc, char *argv[]) {
-    if (argc == 3 && strcmp(argv[1], "-f") == 0) {
-		string input = readFile(argv[2]);
-
-		cout << zygisau::ZA256::hash(input) << endl;
-    } else if (argc == 1) {
+	if (argc == 1) {
 		cout << zygisau::ZA256::hash("") << endl;
 	} else if (argc == 2) {
-    		cout << zygisau::ZA256::hash(argv[1]) << endl;
-	} else {
-        cout << "Failed to parse arguments. Exiting..." << endl;
-    }
+		if (hasEnding(argv[1], ".txt")) {
+			string input = readFile(argv[1]);
+			cout << zygisau::ZA256::hash(input) << endl;
+		} else {
+			cout << zygisau::ZA256::hash(argv[1]) << endl;
+		}
+	}
     return 0;
 }
