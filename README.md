@@ -119,7 +119,3 @@ There is also a possibility to run a few tests.
  - Created README file
 
 [version-badge]: https://img.shields.io/badge/version-0.1.1-yellow.svg
-
-```
-
-```
