@@ -173,7 +173,7 @@ int main() {
 
 	testData("../test-data/test-data-one-letter-", 5, fr);
 	testData("../test-data/test-data-10K-", 3, fr, true);
-	testData("../test-data/test-data-one-diff-", 10, fr);
+	testData("../test-data/test-data-one-diff-", 10, fr, true);
 
 	fr << "Konstitucija užhash'inta per " << readKonstitucija() << "s." << endl;
 
