@@ -164,7 +164,7 @@ void differenceAnalyses(ofstream &fileStream) {
 	char character;
 	int characterPos;
 
-	int size = 1000;
+	int size = 10000;
 	std::vector<double> ratios;
 	for (int i = 1; i <= size; i++) {
 		characterPos = generateRandomPosition(0, dataA.length() - 1);
