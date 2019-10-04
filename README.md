@@ -56,6 +56,15 @@ If You decide to run tests by your own, results will be saved in `ZA-256\test-da
         5ca5c59d8095e5cbd5b5aa59cfeb05a95bcbe885dd5d5ac5b5c5ef5c05e5a15e
 	
 2:	Konstitucija užhash'inta per 4.563s.
+
+--------------------------
+Šie testai buvo daryti su mažesniais skaičiais, dėl laiko stygiaus (testavimas ilgai trunka)
+
+3:	Collision'ų skaičius (jei buvo): 0 / 1 000
+
+4:	Minimalus skirtingumas: 15.2344%
+	Maksimalus skirtingumas: 32.6172%
+	Vidutinis skirtingumas: 21.7969%
 ```
 
 
