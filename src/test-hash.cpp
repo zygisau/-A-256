@@ -92,27 +92,24 @@ string generateRandomString(size_t len) {
 }
 
 int oneMilTest() {
-	std::set<string> generatedInstances;
 	int collisionCount = 0;
 	string dataA;
 	string dataB;
 
-	for (int i = 0; i < 1000000; i++) {
+	int size = 1000000;
+	for (int i = 1; i <= size; i++) {
 		dataA = zygisau::ZA256::hash(generateRandomString(5));
 		dataB = zygisau::ZA256::hash(generateRandomString(5));
 
-		if (generatedInstances.find(dataB) != generatedInstances.end() ||
-			generatedInstances.find(dataA) != generatedInstances.end()) {
-			--i;
-			continue;
-		}
-
 		if (dataA == dataB) {
-			generatedInstances.insert(dataA);
-			generatedInstances.insert(dataB);
 			collisionCount++;
 		}
+
+		if (i % (size / 4) == 0) {
+			cout << "Proc: " << i * 100 / size << "%" << endl;
+		}
 	}
+	cout << endl;
 	return collisionCount;
 }
 
@@ -136,36 +133,56 @@ double bitCompare(const std::string &a, const std::string &b) {
 
 }
 
+int generateRandomPosition(int min, int max) {
+	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::mt19937_64 rng(seed);
+	std::uniform_int_distribution<> random(min, max);
+	return random(rng);
+}
+
+char generateRandomChar() {
+	char s;
+	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::mt19937_64 rng(seed);
+	std::uniform_int_distribution<> random(1, 10);
+
+	int randomChar = random(rng) % (26 + 26 + 10);
+	if (randomChar < 26)
+		s = (char) ('a' + randomChar);
+	else if (randomChar < 26 + 26)
+		s = (char) ('A' + randomChar - 26);
+	else
+		s = (char) ('0' + randomChar - 26 - 26);
+
+	return s;
+}
+
 void differenceAnalyses(ofstream &fileStream) {
-	std::set<string> generatedInstances;
-	string dataA = zygisau::ZA256::hash(generateRandomString(4));
-	string dataB = zygisau::ZA256::hash(generateRandomString(4));
-	string hashA;
+	string dataA = generateRandomString(5);
+	string hashA = zygisau::ZA256::hash(dataA);
 	string hashB;
+	char character;
+	int characterPos;
+
+	int size = 1000;
 	std::vector<double> ratios;
-
-	for (int i = 0; i < 10000; i++) {
-		hashA = zygisau::ZA256::hash(dataA + generateRandomString(1));
-		hashB = zygisau::ZA256::hash(dataB + generateRandomString(1));
-
-		if (generatedInstances.find(hashB) != generatedInstances.end() ||
-			generatedInstances.find(hashA) != generatedInstances.end()) {
-			--i;
-			continue;
-		}
+	for (int i = 1; i <= size; i++) {
+		characterPos = generateRandomPosition(0, dataA.length() - 1);
+		character = generateRandomChar();
+		dataA[characterPos] = character;
+		hashB = zygisau::ZA256::hash(dataA);
 
 		// Už pagalbines konvertavimo funkcijas ir apskaičiavimo idėją dėkingas https://github.com/gitguuddd (Mindaugui Kasiuliui)
 		ratios.push_back(bitCompare(hashA, hashB) * 100);
 		//
 
-		generatedInstances.insert(hashA);
-		generatedInstances.insert(hashB);
-		dataA.substr(0, dataA.size() - 1);
-		dataB.substr(0, dataB.size() - 1);
+		if (i % (size / 4) == 0) {
+			cout << "Proc: " << i * 100 / size << "%" << endl;
+		}
 	}
-	cout << "Minimalus skirtingumas: " << *std::min_element(ratios.begin(), ratios.end()) << "%" << endl;
-	cout << "Maksimalus skirtingumas: " << *std::max_element(ratios.begin(), ratios.end()) << "%" << endl;
-	cout << "Vidutinis skirtingumas: " << std::accumulate(ratios.begin(), ratios.end(), 0.0) / ratios.size() << "%" << endl;
+	fileStream << "Minimalus skirtingumas: " << *std::min_element(ratios.begin(), ratios.end()) << "%" << endl;
+	fileStream << "Maksimalus skirtingumas: " << *std::max_element(ratios.begin(), ratios.end()) << "%" << endl;
+	fileStream << "Vidutinis skirtingumas: " << std::accumulate(ratios.begin(), ratios.end(), 0.0) / ratios.size() << "%" << endl;
 }
 
 int main() {
